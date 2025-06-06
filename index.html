@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="mifta.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Anda bisa menambahkan gaya CSS Anda di sini jika ingin menggabungkan CSS juga */
+    </style>
 </head>
 <body>
     <div class="loading">
@@ -30,7 +33,7 @@
                 <li><a href="#experience">Pengalaman</a></li>
                 <li><a href="#products">Produk Digital</a></li>
                 <li><a href="#contact">Kontak</a></li>
-            </ul>
+                <li><a href="#report">Laporkan</a></li> </ul>
         </div>
     </nav>
 
@@ -57,7 +60,7 @@
             </div>
         </div>
         <div class="wave-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,160C960,181,1056,203,1152,197.3C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,160C960,181,1056,203,1152,197.3C1248,192,1344,160,1392,144L1440,128L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
         </div>
     </section>
 
@@ -80,8 +83,7 @@
                         </ul>
                     </div>
                 </div>
-               <!-- Update in the about section for skills -->
-                <div class="skills">
+               <div class="skills">
                     <h3>Keahlian</h3>
                     <div class="skill-wrapper">
                         <div class="skill">
@@ -156,6 +158,7 @@
                 <div class="more-achievements">
                     <h3>Prestasi Lainnya</h3>
                     <ul>
+                        <li>Juara 2 Duta Genre Kabupaten Pringsewu 2025</li>
                         <li>Narasumber dalam bincang publik menghentikan IPS rokok 2025</li>
                         <li>Perwakilan anak pringsewu dalam pelatihan Advokasi dan kepemimpinan 2024</li>
                         <li>Top 10 Gagasan Tertulis Final dalam Olimpiade Pariwisata UGM 2024</li>
@@ -412,7 +415,7 @@
                 
                 <div class="contact-form">
                     <h3>Kirim Pesan</h3>
-                    <form id="contactForm">
+                    <form id="contactForm" onsubmit="sendWhatsAppMessage(event)">
                         <div class="form-group">
                             <input type="text" id="name" placeholder="Nama Lengkap" required>
                         </div>
@@ -428,6 +431,33 @@
                         <button type="submit" class="btn primary-btn">Kirim Pesan</button>
                     </form>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="report" class="report">
+        <div class="container">
+            <div class="section-header">
+                <h2>Laporkan</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="report-content">
+                <p>Jika Anda menemukan kekerasan, pelanggaran, atau hal lain yang perlu dilaporkan, silakan gunakan formulir di bawah ini. Laporan Anda akan dikirimkan langsung ke WhatsApp kami untuk penanganan lebih lanjut.</p>
+                <form id="reportForm" onsubmit="sendReportMessage(event)">
+                    <div class="form-group">
+                        <input type="text" id="reporterName" placeholder="Nama Anda (Opsional)">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="reporterEmail" placeholder="Email Anda (Opsional)">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="reportSubject" placeholder="Subjek Laporan" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="reportMessage" placeholder="Detail Laporan" rows="8" required></textarea>
+                    </div>
+                    <button type="submit" class="btn primary-btn">Kirim Laporan</button>
+                </form>
             </div>
         </div>
     </section>
@@ -448,6 +478,7 @@
                         <li><a href="#experience">Pengalaman</a></li>
                         <li><a href="#products">Produk Digital</a></li>
                         <li><a href="#contact">Kontak</a></li>
+                        <li><a href="#report">Laporkan</a></li>
                     </ul>
                 </div>
                 <div class="footer-social">
@@ -469,6 +500,140 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
-    <script src="mifta.js"></script>
+    <script>
+        // Fungsi untuk efek typing di bagian hero
+        document.addEventListener("DOMContentLoaded", function() {
+            const typedTextSpan = document.getElementById("typed-text");
+            const textArray = ["Pelajar SMA IT Insan Mulia", "Duta Anak Nasional", "Founder Komunitas PUWALA"];
+            const typingDelay = 100;
+            const erasingDelay = 50;
+            const newTextDelay = 2000; // Delay between current and next text
+            let textArrayIndex = 0;
+            let charIndex = 0;
+
+            function type() {
+                if (charIndex < textArray[textArrayIndex].length) {
+                    if(!typedTextSpan.classList.contains("typing")) typedTextSpan.classList.add("typing");
+                    typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(type, typingDelay);
+                }
+                else {
+                    typedTextSpan.classList.remove("typing");
+                    setTimeout(erase, newTextDelay);
+                }
+            }
+
+            function erase() {
+                if (charIndex > 0) {
+                    if(!typedTextSpan.classList.contains("typing")) typedTextSpan.classList.add("typing");
+                    typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+                    charIndex--;
+                    setTimeout(erase, erasingDelay);
+                }
+                else {
+                    typedTextSpan.classList.remove("typing");
+                    textArrayIndex++;
+                    if(textArrayIndex>=textArray.length) textArrayIndex = 0;
+                    setTimeout(type, typingDelay + 1100);
+                }
+            }
+
+            // Panggil fungsi typing saat halaman dimuat
+            type();
+
+            // Loading Screen
+            const loadingScreen = document.querySelector('.loading');
+            window.addEventListener('load', () => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500); // Durasi fade out
+            });
+
+            // Menu Toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when a nav link is clicked (for mobile)
+            document.querySelectorAll('.nav-menu li a').forEach(item => {
+                item.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        menuToggle.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    }
+                });
+            });
+
+            // Back to Top Button
+            const backToTopButton = document.querySelector('.back-to-top');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { // Show button after scrolling 300px
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
+                }
+            });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Form submission for WhatsApp (Kontak)
+            window.sendWhatsAppMessage = function(event) {
+                event.preventDefault(); // Mencegah pengiriman formulir standar
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+
+                const whatsappNumber = '6285658987525'; // Ganti dengan nomor WhatsApp Anda
+                const whatsappMessage = `Halo, saya ${name} (%0AEmail: ${email}%0ASubjek: ${subject}%0APesan: ${message}`;
+
+                const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+                window.open(whatsappURL, '_blank'); // Membuka jendela baru dengan pesan WhatsApp
+
+                // Opsional: Bersihkan formulir setelah pengiriman
+                document.getElementById('contactForm').reset();
+                alert('Pesan Anda akan dikirimkan melalui WhatsApp!');
+            };
+
+            // Form submission for WhatsApp (Laporkan)
+            window.sendReportMessage = function(event) {
+                event.preventDefault(); // Mencegah pengiriman formulir standar
+
+                const reporterName = document.getElementById('reporterName').value;
+                const reporterEmail = document.getElementById('reporterEmail').value;
+                const reportSubject = document.getElementById('reportSubject').value;
+                const reportMessage = document.getElementById('reportMessage').value;
+
+                const whatsappNumber = '6285658987525'; // Ganti dengan nomor WhatsApp Anda
+                let whatsappReportText = `LAPORAN BARU!%0A`;
+                if (reporterName) whatsappReportText += `Nama Pelapor: ${reporterName}%0A`;
+                if (reporterEmail) whatsappReportText += `Email Pelapor: ${reporterEmail}%0A`;
+                whatsappReportText += `Subjek: ${reportSubject}%0A`;
+                whatsappReportText += `Detail Laporan:%0A${reportMessage}`;
+
+                const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappReportText)}`;
+
+                window.open(whatsappURL, '_blank'); // Membuka jendela baru dengan pesan WhatsApp
+
+                // Opsional: Bersihkan formulir setelah pengiriman
+                document.getElementById('reportForm').reset();
+                alert('Laporan Anda telah berhasil dikirimkan melalui WhatsApp!');
+            };
+        });
+    </script>
 </body>
 </html>
